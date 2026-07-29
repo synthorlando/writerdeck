@@ -19,4 +19,4 @@ chmod +x install.sh
 ./install.sh
   ```
 # to-do
-TODO configurar syncthing
+- configurar syncthing
