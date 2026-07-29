@@ -15,7 +15,7 @@ fi
 #instalar primeras utilidades
 echo -e "${GREEN}Instalando utilidades${NC}"
 sudo apt update
-sudo apt install network-manager acpi light tmux micro syncthing -y`
+sudo apt install network-manager acpi light tmux micro syncthing -y
 
 # añadir el repositorio de backports para para debian 13
 cat <<EOF | sudo tee /etc/apt/sources.list.d/debian-backports.sources
