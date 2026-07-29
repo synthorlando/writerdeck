@@ -3,7 +3,9 @@ mi propio setup para un writerdeck, basado en debian 13
 
 este pedacito de software se entrega sin ninguna garantía, a menos que seas mi novia 
 
-# instalación
+!!! ESTE PEDACITO DE SOFTWARE TODAVÍA NO ESTÁ LISTO
+
+# instalación 
 1. instala debian 13 en un computador de 64 bits (versión 32 bits saldrá en algún momento)
 2. instala git
 ```
@@ -16,3 +18,5 @@ cd writerdeck
 chmod +x install.sh
 ./install.sh
   ```
+# to-do
+TODO configurar syncthing
