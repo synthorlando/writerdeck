@@ -2,7 +2,6 @@
 
 # colores para mensajes
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
@@ -18,6 +17,7 @@ sudo apt update
 sudo apt install network-manager acpi light tmux micro syncthing -y
 
 # configurar tmux
+echo -e "${GREEN}Configurando utilidades${NC}"
 cat > ~/.tmux.conf <<'EOF'
 # Posición y color de la barra
 set -g status-position top
@@ -31,7 +31,7 @@ bind -n F9 run-shell 'light -A 10'  # Aumentar brillo
 set-window-option -g status-right "#(acpi -b | grep -m1 -o -P '.{0,2}%')"
 EOF
 
-# configurar arranque automático de tmux y microPENDIENTE PROBAR
+# configurar arranque automático de tmux y micro PENDIENTE PROBAR
 TMUX_MICRO_AUTOSTART='if [ -z "$TMUX" ]; then
     tmux new-session -A -s autostart micro
 fi'
@@ -40,7 +40,7 @@ source ~/.bashrc
 
 # Configurar permisos para light (control de brillo)
 if ! groups | grep -q video; then
-    echo -e "${YELLOW}Configurando permisos para controlar el brillo...${NC}"
+    echo -e "${GREEN}Configurando permisos para controlar el brillo...${NC}"
     sudo usermod -aG video $USER
 fi
 
