@@ -14,7 +14,7 @@ sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.
 3. reinicia y a escribir :3
 
 # to-do
-✓ configurar login automático
-✓ configurar inicio automático de tmux
-✓ configurar inicio automático de micro
+- configurar login automático ✓
+- configurar inicio automático de tmux ✓
+- configurar inicio automático de micro ✓
 - configurar syncthing
