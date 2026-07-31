@@ -17,7 +17,4 @@ sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.
 - puedes usar `sudo dpkg-reconfigure console-setup`  para configurar la fuente y su tamaño. Yo uso UTF-8, Latino 1, Terminus y 11x22.
 
 # to-do
-- configurar login automático ✓
-- configurar inicio automático de tmux ✓
-- configurar inicio automático de micro ✓
 - configurar syncthing
