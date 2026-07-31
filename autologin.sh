@@ -1,11 +1,14 @@
 #!/bin/bash
-
+# colores para mensajes
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
 # elegir usuario
 read -p "Ingresa tu nombre de usuario: " USERNAME
 
 # comprobar si el usuario existe
 if ! id "$USERNAME" &>/dev/null; then
-    echo "Error: El usuario '$USERNAME' no existe." >&2
+    echo "${RED}Error: El usuario '$USERNAME' no existe.${NC}" >&2
     exit 1
 fi
 
@@ -30,4 +33,4 @@ systemctl daemon-reload
 # reiniciar getty
 systemctl restart getty@tty1
 
-echo "Writerdeck configurado para '$USERNAME'. Reinicia para empezar a escribir."
+echo "${GREEN}Writerdeck configurado para '$USERNAME'. Reinicia para empezar a escribir.${NC}"
