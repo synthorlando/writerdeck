@@ -31,7 +31,12 @@ bind -n F9 run-shell 'light -A 10'  # Aumentar brillo
 set-window-option -g status-right "#(acpi -b | grep -m1 -o -P '.{0,2}%')"
 EOF
 
-# configurar arranque automático de tmux PENDIENTE
+# configurar arranque automático de tmux y microPENDIENTE PROBAR
+TMUX_MICRO_AUTOSTART='if [ -z "$TMUX" ]; then
+    tmux new-session -A -s autostart micro
+fi'
+echo "$TMUX_MICRO_AUTOSTART" >> ~/.bashrc
+source ~/.bashrc
 
 # Configurar permisos para light (control de brillo)
 if ! groups | grep -q video; then
