@@ -11,7 +11,11 @@ este pedacito de software se entrega sin ninguna garantía, a menos que seas mi 
 ```
 sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.git && cd writerdeck && chmod +x install.sh && ./install.sh
 ```
-3. reinicia y a escribir :3
+3. si quieres que se inicie sesión automáticamente (solo recomendado para instalaciones encriptadas), ejecuta:
+```
+cd ~/writerdeck && chmod +x autologinl.sh && ./autologin.sh
+```
+4. reinicia y a escribir :3
 
 # configuraciones opcionales
 - puedes usar `sudo dpkg-reconfigure console-setup`  para configurar la fuente y su tamaño. Yo uso UTF-8, Latino 1, Terminus y 11x22.
