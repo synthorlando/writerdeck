@@ -13,7 +13,7 @@ sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.
 ```
 3. si quieres que se inicie sesión automáticamente (solo recomendado para instalaciones encriptadas), ejecuta:
 ```
-cd ~/writerdeck && chmod +x autologinl.sh && ./autologin.sh
+cd ~/writerdeck && sudo chmod +x autologin.sh && ./autologin.sh
 ```
 4. reinicia y a escribir :3
 
