@@ -16,10 +16,10 @@ Si no eres mi novia, me veo en la obligación de pedirte encarecidamente que lea
 En tu candidato a writerdeck, instala [Debian 12 "Bookworm"](https://www.debian.org/releases/bookworm/debian-installer/) (opción "netinst CD image", amd64).
 
 Deja la cuenta de superusuario en blanco.
-!(https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+!(https://github.com/synthorlando/writerdeck/blob/main/img/sudo.png?raw=true)
 
-Sugiero**[encripta el sistema con LUKS durante la instalación.](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)** si vas a usar la opción de _autologin._
-
+Sugiero **[encriptar el sistema con LUKS durante la instalación.](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)** si vas a usar la opción de _autologin._
+!(https://github.com/synthorlando/writerdeck/blob/main/img/luks.png?raw=true)
 
 
 No uso Debian 13 "Trixie" porque no tiene Tilde, el editor de texto que usa este setup, en sus repos. Tampoco pruebo todavía configurar un writerdeck de 32 bits. 
