@@ -26,6 +26,7 @@ Sugiero **[encriptar el sistema con LUKS durante la instalación.](https://wiki.
 Elige solo instalar las utilidades estándar del sistema y servidor ssh. No escojas ningún escritorio.
 
 ![elección de software](https://github.com/synthorlando/writerdeck/blob/main/img/software.png?raw=true)
+
 (Se me olvidó sacarle captura)
 
 --- 
