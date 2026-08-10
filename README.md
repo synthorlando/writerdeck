@@ -24,7 +24,7 @@ cd ~/writerdeck && chmod +x autologin.sh && sudo ./autologin.sh
 2. procura tener instalado `openssh-client` si tu otro pc corre Linux, u OpenSSH si corre windows (Puedes seguir las instrucciones de [este tutorial](https://web.archive.org/web/20250724214319/https://www.xataka.com/basics/ssh-windows-11-que-como-configurarlo-paso-a-paso) las instrucciones hasta "pulsar en Iniciar para simplemente lanzar el servidor SSH").
 3. ejecuta esta otra línea de comandos en tu writerdeck. 
 ```
-sudo apt install syncthing && cd ~/writerdeck && chmod +x sync.sh && sudo ./sync.sh
+cd ~/writerdeck && chmod +x sync.sh && sudo ./sync.sh
 ```
 4. sigue las instrucciones del script y configura las carpetas a sincronizar desde tu otro pc.
 
