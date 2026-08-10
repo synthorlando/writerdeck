@@ -21,16 +21,16 @@ cd ~/writerdeck && chmod +x autologin.sh && sudo ./autologin.sh
 
 # sincronización (vía syncthing) 
 1. conecta tu writerdeck y el pc en el que vas a sincronizar las notas a la misma red de wifi.
-2. procura tener instalado `openssh-client` si tu otro pc corre Linux, o [OpenSSH](https://github.com/PowerShell/Win32-OpenSSH/releases/) si corre windows (aún sin probar en este os)
-3. ejecuta esta otra línea de comandos para instalar syncthing y volver ejecutable su script. 
+2. procura tener instalado `openssh-client` si tu otro pc corre Linux, u OpenSSH si corre windows (Puedes seguir las instrucciones de [este tutorial](https://web.archive.org/web/20250724214319/https://www.xataka.com/basics/ssh-windows-11-que-como-configurarlo-paso-a-paso) las instrucciones hasta "pulsar en Iniciar para simplemente lanzar el servidor SSH").
+3. ejecuta esta otra línea de comandos en tu writerdeck. 
 ```
 sudo apt install syncthing && cd ~/writerdeck && chmod +x sync.sh && sudo ./sync.sh
 ```
-3. sigue las instrucciones del script y configura las carpetas a sincronizar desde tu otro pc.
+4. sigue las instrucciones del script y configura las carpetas a sincronizar desde tu otro pc.
 
 # configuraciones extra
 - puedes usar `sudo dpkg-reconfigure console-setup`  para configurar la fuente y su tamaño. Yo uso UTF-8, Latino 1, Terminus y 11x22.
 
 
 # to-do
-- configurar syncthing
+- testear
