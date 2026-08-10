@@ -6,6 +6,8 @@ Este pedacito de software se entrega **sin ninguna garantía**, a menos que seas
 
 Tus necesidades y preferencias pueden ser distintas a las mías y las de mi novia. No cubriré esas necesidades, eres libre de adaptar este setup como quieras.
 
+No uso Debian 13 "Trixie" porque no tiene Tilde, el editor de texto que usa este setup, en sus repos. Tampoco pruebo todavía configurar un writerdeck de 32 bits. 
+
 ---
 
 # Antes de empezar
@@ -21,8 +23,10 @@ Sugiero **[encriptar el sistema con LUKS durante la instalación.](https://wiki.
 
 ![pantalla de encriptación](https://github.com/synthorlando/writerdeck/blob/main/img/luks.png?raw=true)
 
-No uso Debian 13 "Trixie" porque no tiene Tilde, el editor de texto que usa este setup, en sus repos. Tampoco pruebo todavía configurar un writerdeck de 32 bits. 
+Elige solo instalar las utilidades estándar del sistema y servidor ssh. No escojas ningún escritorio.
 
+![elección de software](https://github.com/synthorlando/writerdeck/blob/main/img/software.png?raw=true)
+(Se me olvidó sacarle captura)
 
 --- 
 
