@@ -1,8 +1,8 @@
 # Synthorlando's Writerdeck
 
-Mi propio setup para convertir un computador viejo en un writerdeck, basado en Debian ~13~ 12
+Mi propio setup para convertir un computador viejo de 64 bits en un writerdeck, basado en Debian ~13~ 12.
 
-Este pedacito de software se entrega **sin ninguna garantía**, a menos que seas mi novia 
+Este pedacito de software se entrega **sin ninguna garantía**, a menos que seas mi novia.
 
 Tus necesidades y preferencias pueden ser distintas a las mías y las de mi novia. No cubriré esas necesidades, eres libre de adaptar este setup como quieras.
 
@@ -13,8 +13,9 @@ Tus necesidades y preferencias pueden ser distintas a las mías y las de mi novi
 # Antes de empezar
 Si no eres mi novia, me veo en la obligación de pedirte encarecidamente que leas todas las instrucciones primero, porque en ella sí confío.
 
-En tu candidato a writerdeck, instala Debian 12 (Debian 13 no tiene Tilde, el editor de texto que usa este setup, en sus repos). 
+En tu candidato a writerdeck, instala [Debian 12 "Bookworm"](https://www.debian.org/releases/bookworm/debian-installer/) (opción "netinst CD image", amd64).
 
+No uso Debian 13 "Trixie" porque no tiene Tilde, el editor de texto que usa este setup, en sus repos. Tampoco pruebo todavía configurar un writerdeck de 32 bits. 
 
 
 --- 
@@ -27,7 +28,7 @@ sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.
 2. Reinicia tu candidato a writerdeck.
 3. Se encenderá como un writerdeck hecho y derecho, ya puedes empezar a escribir.
 
-# 2. Configurar el autologin
+# 2. Configurar el autologin (opcional)
 Si quieres que tu writerdeck inicie sesión automáticamente, puedes usar el siguiente script. **Solo deberías usarlo en instalaciones encriptadas**.
 ```
 cd ~/writerdeck && chmod +x autologin.sh && sudo ./autologin.sh
