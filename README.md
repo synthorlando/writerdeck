@@ -6,7 +6,7 @@ Este pedacito de software se entrega **sin ninguna garantía**, a menos que seas
 
 Tus necesidades y preferencias pueden ser distintas a las mías y las de mi novia. No cubriré esas necesidades, eres libre de adaptar este setup como quieras.
 
-**[ ¡ ADVERTENCIA ! ]** Si vas a usar la opción de *autologin*, [encripta el sistema con LUKS durante la instalación.](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)** 
+**[ ¡ ADVERTENCIA ! ]** Si vas a usar la opción de *autologin*, **[encripta el sistema con LUKS durante la instalación.](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)** 
 
 ---
 
