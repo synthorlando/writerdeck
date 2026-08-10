@@ -21,7 +21,7 @@ cd ~/writerdeck && chmod +x autologin.sh && sudo ./autologin.sh
 
 # sincronización (vía syncthing) 
 1. conecta tu writerdeck y el pc en el que vas a sincronizar las notas a la misma red de wifi.
-2. ejecuta esta otra línea de comandos para instalar syncthing y volver ejecutable su script. Luego, sigue las 
+2. ejecuta esta otra línea de comandos para instalar syncthing y volver ejecutable su script. 
 ```
 sudo apt install syncthing && cd ~/writerdeck && chmod +x sync.sh && sudo ./sync.sh
 ```
