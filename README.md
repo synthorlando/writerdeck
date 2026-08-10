@@ -14,7 +14,7 @@ sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.
 4. reinicia y a escribir. 
 
 # configurar el autologin
-si quieres que tu writerdeck inicie sesión automáticamente, puedes usar el siguiente script. **solo usarlo en instalaciones encriptadas**.
+si quieres que tu writerdeck inicie sesión automáticamente, puedes usar el siguiente script. **solo usarlo en [instalaciones encriptadas](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)**.
 ```
 cd ~/writerdeck && chmod +x autologin.sh && sudo ./autologin.sh
 ```
