@@ -6,11 +6,6 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# instalar syncthing
-echo "Instalando Syncthing..."
-apt update
-apt install -y syncthing
-
 # Elegir el usuario
 read -p "Ingresa tu nombre de usuario: " USERNAME
 if ! id "$USERNAME" &>/dev/null; then
@@ -46,10 +41,4 @@ systemctl start syncthing@$USERNAME
 echo "Revisando status de Syncthing..."
 systemctl status syncthing@$USERNAME --no-pager
 
-# Descrubrir IP para el client 
-SERVER_IP=$(hostname -I | awk '{print $1}')
-echo ""
-echo "Syncthing está funcionando para $USERNAME."
-echo "Para sincronizar, accede desde tu otro computador con el comando:"
-echo "'ssh -L 8384:localhost:8384 $USERNAME@$SERVER_IP' en tu terminal o PowerShell (Windows)"
-echo "Y abre http://localhost:8384 en tu navegador."
+
