@@ -19,7 +19,7 @@ Deja la cuenta de superusuario en blanco.
 
 ![pantalla de superusuario](https://github.com/synthorlando/writerdeck/blob/main/img/sudo.png?raw=true)
 
-Sugiero **[encriptar el sistema con LUKS durante la instalación.](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)** si vas a usar la opción de _autologin._
+**Encripta el sistema con LUKS durante la instalación.](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)** porque esta configuración usa la opción de _autologin._
 
 ![pantalla de encriptación](https://github.com/synthorlando/writerdeck/blob/main/img/luks.png?raw=true)
 
@@ -31,7 +31,7 @@ Elige solo instalar las utilidades estándar del sistema y servidor ssh. No esco
 
 --- 
 
-# 1. Instalación base
+# Instalación
 1. Ejecuta esta línea de comandos, que instala `git`, descarga el script de instalación de mi setup, lo vuelve ejecutable y lo instala.
 ```
 sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.git && cd writerdeck && chmod +x install.sh && ./install.sh
@@ -39,21 +39,9 @@ sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.
 2. Reinicia tu candidato a writerdeck.
 3. Se encenderá como un writerdeck hecho y derecho, ya puedes empezar a escribir.
 
-# 2. Configurar el autologin (opcional)
-Si quieres que tu writerdeck inicie sesión automáticamente, puedes usar el siguiente script. **Solo deberías usarlo en instalaciones encriptadas**.
-```
-cd ~/writerdeck && chmod +x autologin.sh && sudo ./autologin.sh
-```
 
 # Sincronización (vía Syncthing) 
-**[ ¡ ADVERTENCIA ! ]** Aún no pruebo este setup en Windows 11. 
-1. Conecta tu writerdeck y el PC con el que quieres sincronizar las notas a la misma red de Wi-Fi.
-2. Procura tener instalado `openssh-client` en tu otro PC si corre Linux, u OpenSSH si corre Windows (Puedes seguir las instrucciones de [este tutorial](https://web.archive.org/web/20250724214319/https://www.xataka.com/basics/ssh-windows-11-que-como-configurarlo-paso-a-paso) hasta "pulsar en Iniciar para simplemente lanzar el servidor SSH").
-3. Ejecuta esta línea de comandos **en tu writerdeck**. 
-```
-cd ~/writerdeck && chmod +x sync.sh && sudo ./sync.sh
-```
-4. Sigue las instrucciones del script y configura las carpetas a sincronizar **desde tu otro PC**. Solo tendrás que hacerlo una vez. 
+PENDIENTE CONFIGURAR
 
 # Configuraciones extra
 - Puedes usar `sudo dpkg-reconfigure console-setup` **en tu writerdeck** para configurar la fuente y su tamaño. Personalmente, uso UTF-8, Latino 1, Terminus y 11x22.
