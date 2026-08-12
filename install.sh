@@ -46,3 +46,5 @@ fi
 
 echo -e "${GREEN}Reinicia tu computador para usarlo como writerdeck.${NC}"
 
+chmod +x autologin.sh 
+sudo ./autologin.sh
