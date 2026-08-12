@@ -14,7 +14,9 @@ fi
 #instalar primeras utilidades
 echo -e "${GREEN}Instalando utilidades${NC}"
 sudo apt update
-sudo apt install network-manager acpi light tmux tilde syncthing -y
+sudo apt install network-manager acpi light tmux tilde syncthing curl -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+go install github.com/evidlo/syncthingtui/cmd/syncthingtui@latest
 
 # configurar tmux
 echo -e "${GREEN}Configurando utilidades${NC}"
