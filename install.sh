@@ -22,7 +22,7 @@ if ! sudo -v &>/dev/null; then
     exit 1
 fi
 
-# Guardar el usuario actual 
+# Guardar el usuario actual
 CURRENT_USER=$(whoami)
 
 # ====================INSTALAR DE UTILIDADES========================
@@ -153,11 +153,6 @@ sudo systemctl start syncthing@$USERNAME
 echo -e "${GREEN}Estado de Syncthing:${NC}"
 sudo systemctl status syncthing@$USERNAME --no-pager
 
-# Reiniciar getty
-
-echo -e "${GREEN}Reiniciando servicio getty...${NC}"
-sudo systemctl restart getty@tty1
-
 # Eliminar otros contenidos de writerdeck
 rm -rf ~/writerdeck/* ~/writerdeck/.* 2>/dev/null
 
@@ -174,3 +169,4 @@ echo "\n${RED}Primero, reinicia tu computador para aplicar todos los cambios.${N
 echo -e "${YELLOW}Luego, para acceder a la interfaz web de Syncthing desde otro equipo en tu red local:${NC}"
 echo -e "${GREEN}1. Ejecuta en tu segundo computador: ssh -L 8384:localhost:8384 $USERNAME@$LOCAL_IP${NC}"
 echo -e "${GREEN}2. Luego abre en su navegador: http://$LOCAL_IP:8384${NC}"
+echo -e "${GREEN}Presiona ENTER para seguir.${NC}"
