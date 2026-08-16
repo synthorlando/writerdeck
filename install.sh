@@ -22,7 +22,7 @@ if ! sudo -v &>/dev/null; then
     exit 1
 fi
 
-# Guardar el usuario actual
+# Guardar el usuario actual 
 CURRENT_USER=$(whoami)
 
 # ====================INSTALAR DE UTILIDADES========================
