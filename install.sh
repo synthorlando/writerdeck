@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# ============================================
 # COLORES PARA MENSAJES
-# ============================================
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-# ============================================
-# VERIFICACIONES INICIALES
-# ============================================
+# ==============VERIFICACIONES================
 
 # Verificar si se ejecuta como root (NO permitir)
 if [ "$(id -u)" -eq 0 ]; then
@@ -18,7 +14,7 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 1
 fi
 
-# Verificar que el usuario actual tenga permisos sudo
+# Verificar que el usuario tenga permisos sudo
 if ! sudo -v &>/dev/null; then
     echo -e "${RED}Necesitas permisos sudo para ejecutar este script.${NC}"
     exit 1
@@ -27,52 +23,49 @@ fi
 # Guardar el usuario actual
 CURRENT_USER=$(whoami)
 
-# ============================================
-# PARTE 1: INSTALACIÓN DE UTILIDADES
-# ============================================
+# ====================INSTALAR DE UTILIDADES========================
 
 echo -e "${GREEN}Instalando utilidades básicas...${NC}"
 sudo apt update
-sudo apt install -y network-manager acpi light tmux tilde syncthing
+sudo apt install -y network-manager acpi light tmux kmscon micro syncthing
 
-# ============================================
-# CONFIGURACIÓN DE TMUX
-# ============================================
+# ====================CONFIGURANDO CARPETA========================
 
+echo -e "${GREEN}Creando carpeta de trabajo...{NC}"
+mkdir ~/writerdeck
+chmod 700 ~/writerdeck
+
+# ====================CONFIGURAR TMUX========================
 echo -e "${GREEN}Configurando tmux...${NC}"
 cat > ~/.tmux.conf <<'EOF'
 # Posición y color de la barra
 set -g status-position top
-set -g status-style bg=white,fg=black
+set -g status-style bg=black,fg=white
 
 # Atajos para el brillo
 bind -n F8 run-shell 'if command -v light &>/dev/null; then light -U 10; else echo "light no instalado"; fi'
 bind -n F9 run-shell 'if command -v light &>/dev/null; then light -A 10; else echo "light no instalado"; fi'
 
 # Mostrar estado batería en vez de la hora
-set-window-option -g status-right "#(acpi -b | grep -m1 -o -P '.{0,2}%' || echo 'No battery')"
+set-window-option -g status-right "#(acpi -b | grep -m1 -o -P '.{0,2}%' || echo 'sin batería')"
 EOF
 
-# ============================================
-# CONFIGURACIÓN DE AUTOSTART TMUX TILDE)
-# ============================================
+# ====================AUTOSTART TMUX Y MICRO =======================
 
 echo -e "${GREEN}Configurando autostart de tmux y tilde...${NC}"
 
 # Añadir al .bashrc solo si no existe ya
-if ! grep -q "tmux new-session -A -s autostart tilde -b" ~/.bashrc; then
+if ! grep -q "tmux new-session -A -s autostart -c /writerdeck micro" ~/.bashrc; then
     cat >> ~/.bashrc <<'EOF'
 
-# Iniciar tmux con tilde en modo blanco y negro (-b)
+# Iniciar tmux con micro en /writerdeck
 if [ -z "$TMUX" ]; then
-    tmux new-session -A -s autostart tilde -b
+    tmux new-session -A -s autostart -c /writerdeck micro
 fi
 EOF
     echo -e "${GREEN}Configuración completada${NC}"
-    
-# ============================================
-# PERMISOS PARA LIGHT
-# ============================================
+
+# ====================CONTROLES DE BRILLO =======================
 
 if ! groups | grep -q video; then
     echo -e "${GREEN}Configurando permisos para control de brillo...${NC}"
@@ -80,11 +73,9 @@ if ! groups | grep -q video; then
     echo -e "${YELLOW}Los cambios requieren reinicio para aplicarse.${NC}"
 fi
 
-# ============================================
-# PARTE 2: CONFIGURACIÓN DE AUTOLOGIN Y SYNCTHING
-# ============================================
+# ====================CONFIGURANDO AUTOLOGIN. ELEGIR USUARIO=======================
 
-echo -e "${GREEN}Configurando autologin y Syncthing...${NC}"
+echo -e "${GREEN}Configurando autologin...${NC}"
 
 # Solicitar usuario para autologin
 read -p "Ingresa tu nombre de usuario para autologin (presiona Enter para usar '$CURRENT_USER'): " INPUT_USER
@@ -96,9 +87,7 @@ if ! id "$USERNAME" &>/dev/null; then
     exit 1
 fi
 
-# ============================================
-# CONFIGURAR AUTOLOGIN
-# ============================================
+# ====================AUTOLOGIN Y TMUX=======================
 
 echo -e "${GREEN}Configurando autologin para $USERNAME...${NC}"
 
@@ -118,16 +107,14 @@ sudo chmod 644 "$OVERRIDE_FILE"
 # Recargar systemd
 sudo systemctl daemon-reload
 
-# ============================================
-# CONFIGURAR SYNCTHING
-# ============================================
+# ====================CONFIGURANDO SYNCTHING=======================
 
 echo -e "${GREEN}Configurando Syncthing para $USERNAME...${NC}"
 
 # Crear archivo de servicio si no existe
 sudo tee /etc/systemd/system/syncthing@.service > /dev/null <<'EOF'
 [Unit]
-Description=Syncthing - File synchronization
+Description=Sincronizacion de archivos.
 Documentation=man:syncthing(1)
 After=network.target
 
@@ -144,6 +131,18 @@ SuccessExitStatus=3 4
 WantedBy=multi-user.target
 EOF
 
+# Script para configurar UFW para Syncthing
+echo "Configurando UFW para Syncthing..."
+
+# Permitir puertos de Syncthing
+sudo ufw allow 22000/tcp   # Sincronización
+sudo ufw allow 21027/udp   # Descubrimiento
+sudo ufw allow 8384/tcp    # Interfaz web
+sudo ufw allow 22/tcp      # SSH
+
+# Habilitar UFW
+sudo ufw --force enable
+
 # Habilitar e iniciar Syncthing
 sudo systemctl enable syncthing@$USERNAME
 sudo systemctl start syncthing@$USERNAME
@@ -152,17 +151,24 @@ sudo systemctl start syncthing@$USERNAME
 echo -e "${GREEN}Estado de Syncthing:${NC}"
 sudo systemctl status syncthing@$USERNAME --no-pager
 
-# ============================================
-# REINICIAR GETTY
-# ============================================
+# Reiniciar getty
 
 echo -e "${GREEN}Reiniciando servicio getty...${NC}"
 sudo systemctl restart getty@tty1
 
-# ============================================
-# MENSAJE FINAL
-# ============================================
+# Eliminar otros contenidos de writerdeck
+rm -rf ~/writerdeck/* ~/writerdeck/.* 2>/dev/null
+
+#Añadir carpeta writerdeck para Syncthing
+syncthing cli add-folder --id=writerdeck --path=~/writerdeck --label="WriterDeck" --type=sendreceive
+
+# ====================TODO LISTO=======================
+# Obtener la IP local de la máquina (excluyendo loopback y IPv6)
+LOCAL_IP=$(ip -4 addr show scope global | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n 1)
 
 echo -e "\n${GREEN}¡Tu writerdeck fue configurado exitosamente!${NC}"
 echo -e "\n${YELLOW}IMPORTANTE:${NC}"
-echo "Reinicia tu computador para aplicar todos los cambios."
+echo "\n${RED}Primero, reinicia tu computador para aplicar todos los cambios.${NC}"
+echo -e "${YELLOW}Luego, para acceder a la interfaz web de Syncthing desde otro equipo en tu red local:${NC}"
+echo -e "${GREEN}1. Ejecuta en tu segundo computador: ssh -L 8384:localhost:8384 $USERNAME@$LOCAL_IP${NC}"
+echo -e "${GREEN}2. Luego abre en su navegador: http://$LOCAL_IP:8384${NC}"
