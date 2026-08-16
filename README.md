@@ -31,7 +31,7 @@ Elige solo instalar las utilidades estándar del sistema y servidor ssh. No esco
 
 # Instalación
 ```
-sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.git && cd writerdeck && chmod +x install.sh && ./install.sh
+sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.git && cd writerdeck && chmod +x install.sh && bash install.sh
 ```
 
 # Uso
