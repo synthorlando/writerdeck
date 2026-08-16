@@ -40,4 +40,5 @@ Para acceder a la interfaz web de Syncthing desde otro equipo en tu red local, e
 ```
 ssh -L 8384:localhost:8384 (USUARIO DEL WRITERRDECK)@(IP DEL WRITERDECK)
 ```
+Puedes obtener tu (USUARIO DE WRITERRDECK) con el comando `hostname` y tu (IP DEL WRITERDECK) con el comando `hostname -I`
 Abre en su navegador: http://localhost:8384
