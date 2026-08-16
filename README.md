@@ -6,14 +6,12 @@ Este pedacito de software se entrega **sin ninguna garantía**, a menos que seas
 
 Tus necesidades y preferencias pueden ser distintas a las mías y las de mi novia. No cubriré esas necesidades, eres libre de adaptar este setup como quieras.
 
-No uso Debian 13 "Trixie" porque no tiene Tilde, el editor de texto que usa este setup, en sus repos. Tampoco pruebo todavía configurar un writerdeck de 32 bits. 
+No uso Debian 13 "Trixie" porque no quería configurar los backports para kmscon.
 
 ---
 
 # Antes de empezar
-Si no eres mi novia, me veo en la obligación de pedirte encarecidamente que leas todas las instrucciones primero, porque en ella sí confío.
-
-En tu candidato a writerdeck, instala [Debian 12 "Bookworm"](https://www.debian.org/releases/bookworm/debian-installer/) (opción "netinst CD image", amd64).
+En tu candidato a writerdeck, instala [Debian 12 "Bookworm"](https://www.debian.org/releases/bookworm/debian-installer/) ("netinst CD image", amd64).
 
 Deja la cuenta de superusuario en blanco.
 
@@ -29,20 +27,12 @@ Elige solo instalar las utilidades estándar del sistema y servidor ssh. No esco
 
 (Se me olvidó sacarle captura)
 
---- 
+---
 
 # Instalación
-1. Ejecuta esta línea de comandos, que instala `git`, descarga el script de instalación de mi setup, lo vuelve ejecutable y lo instala.
 ```
 sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.git && cd writerdeck && chmod +x install.sh && ./install.sh
 ```
-2. Reinicia tu candidato a writerdeck.
-3. Se encenderá como un writerdeck hecho y derecho, ya puedes empezar a escribir.
 
-
-# Sincronización (vía Syncthing) 
-PENDIENTE CONFIGURAR
-
-# Configuraciones extra
-- Puedes usar `sudo dpkg-reconfigure console-setup` **en tu writerdeck** para configurar la fuente y su tamaño. Personalmente, uso UTF-8, Latino 1, Terminus y 11x22.
-
+# Uso
+[PENDIENTE]
