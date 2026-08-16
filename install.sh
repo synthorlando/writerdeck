@@ -1,15 +1,12 @@
 #!/bin/bash
 
-
 # ==============COLORES PARA MENSAJES================
-
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # ==============VERIFICACIONES================
-
 # Verificar si se ejecuta como root (NO permitir)
 if [ "$(id -u)" -eq 0 ]; then
     echo -e "${RED}No ejecutes este script como root. Ejecútalo como usuario normal.${NC}"
@@ -26,14 +23,13 @@ fi
 CURRENT_USER=$(whoami)
 
 # ====================INSTALAR DE UTILIDADES========================
-
 echo -e "${GREEN}Instalando utilidades básicas...${NC}"
 sudo apt update
-sudo apt install -y network-manager acpi light tmux kmscon micro syncthing
+sudo apt install -y network-manager acpi light tmux kmscon micro syncthing openssh-server
 
 # ====================CONFIGURANDO CARPETA========================
-
 echo -e "${GREEN}Creando carpeta de trabajo...${NC}"
+mkdir -p ~/writerdeck
 chmod 700 ~/writerdeck
 
 # ====================CONFIGURAR TMUX========================
@@ -52,8 +48,7 @@ set-window-option -g status-right "#(acpi -b | grep -m1 -o -P '.{0,2}%' || echo 
 EOF
 
 # ====================AUTOSTART TMUX Y MICRO =======================
-
-echo -e "${GREEN}Configurando autostart de tmux y tilde...${NC}"
+echo -e "${GREEN}Configurando autostart de tmux y micro...${NC}"
 
 # Añadir al .bashrc solo si no existe ya
 if ! grep -q "tmux new-session -A -s autostart -c /writerdeck micro" ~/.bashrc; then
@@ -65,18 +60,16 @@ if [ -z "$TMUX" ]; then
 fi
 EOF
     echo -e "${GREEN}Configuración completada${NC}"
-fi  # <--- Este es el fi que faltaba
+fi
 
 # ====================CONTROLES DE BRILLO =======================
-
 if ! groups | grep -q video; then
     echo -e "${GREEN}Configurando permisos para control de brillo...${NC}"
     sudo usermod -aG video $CURRENT_USER
     echo -e "${YELLOW}Los cambios requieren reinicio para aplicarse.${NC}"
 fi
 
-# ====================CONFIGURANDO AUTOLOGIN. ELEGIR USUARIO=======================
-
+# ====================CONFIGURANDO AUTOLOGIN =======================
 echo -e "${GREEN}Configurando autologin...${NC}"
 
 # Solicitar usuario para autologin
@@ -89,8 +82,7 @@ if ! id "$USERNAME" &>/dev/null; then
     exit 1
 fi
 
-# ====================AUTOLOGIN Y TMUX=======================
-
+# ====================AUTOLOGIN =======================
 echo -e "${GREEN}Configurando autologin para $USERNAME...${NC}"
 
 OVERRIDE_DIR="/etc/systemd/system/getty@tty1.service.d"
@@ -110,7 +102,6 @@ sudo chmod 644 "$OVERRIDE_FILE"
 sudo systemctl daemon-reload
 
 # ====================CONFIGURANDO SYNCTHING=======================
-
 echo -e "${GREEN}Configurando Syncthing para $USERNAME...${NC}"
 
 # Crear archivo de servicio si no existe
@@ -133,17 +124,35 @@ SuccessExitStatus=3 4
 WantedBy=multi-user.target
 EOF
 
-# Script para configurar UFW para Syncthing
-echo "Configurando UFW para Syncthing..."
+# ====================CONFIGURAR SSH =======================
+echo -e "${GREEN}Configurando SSH...${NC}"
 
-# Permitir puertos de Syncthing
-sudo ufw allow 22000/tcp   # Sincronización
-sudo ufw allow 21027/udp   # Descubrimiento
-sudo ufw allow 8384/tcp    # Interfaz web
+# Habilitar e iniciar SSH
+sudo systemctl enable ssh
+sudo systemctl start ssh
+
+# Verificar que SSH está corriendo
+if sudo systemctl is-active --quiet ssh; then
+    echo -e "${GREEN}SSH está activo y funcionando${NC}"
+else
+    echo -e "${RED}Error: SSH no pudo iniciarse${NC}"
+    exit 1
+fi
+
+# ====================CONFIGURAR UFW =======================
+echo -e "${GREEN}Configurando UFW para Syncthing...${NC}"
+
+# Permitir puertos necesarios
 sudo ufw allow 22/tcp      # SSH
+sudo ufw allow 22000/tcp   # Sincronización Syncthing
+sudo ufw allow 21027/udp   # Descubrimiento Syncthing
+sudo ufw allow 8384/tcp    # Interfaz web Syncthing
 
 # Habilitar UFW
 sudo ufw --force enable
+
+# ====================INICIAR SYNCTHING =======================
+echo -e "${GREEN}Iniciando Syncthing...${NC}"
 
 # Habilitar e iniciar Syncthing
 sudo systemctl enable syncthing@$USERNAME
@@ -156,12 +165,20 @@ sudo systemctl status syncthing@$USERNAME --no-pager
 # Eliminar otros contenidos de writerdeck
 rm -rf ~/writerdeck/* ~/writerdeck/.* 2>/dev/null
 
-#Añadir carpeta writerdeck para Syncthing
-syncthing cli add-folder --id=writerdeck --path=~/writerdeck --label="WriterDeck" --type=sendreceive
+# Esperar un poco para que Syncthing se inicie completamente
+sleep 5
+
+# Añadir carpeta writerdeck para Syncthing
+echo -e "${GREEN}Configurando carpeta writerdeck en Syncthing...${NC}"
+syncthing cli add-folder --id=writerdeck --path=/home/$USERNAME/writerdeck --label="WriterDeck" --type=sendreceive 2>/dev/null || echo -e "${YELLOW}La carpeta ya existe o Syncthing no está listo aún${NC}"
 
 # ====================TODO LISTO=======================
 # Obtener la IP local de la máquina (excluyendo loopback y IPv6)
 LOCAL_IP=$(ip -4 addr show scope global | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n 1)
+
+if [ -z "$LOCAL_IP" ]; then
+    LOCAL_IP="No se pudo obtener la IP. Usa 'ip addr' para verificar"
+fi
 
 echo -e "\n${GREEN}¡Tu writerdeck fue configurado exitosamente!${NC}"
 
@@ -169,10 +186,9 @@ echo -e "\n${RED}IMPORTANTE:${NC}"
 
 echo -e "\n${YELLOW}Primero, reinicia este computador para aplicar todos los cambios.${NC}"
 
-
-echo -e "${YELLOW}Luego, para acceder a la interfaz web de Syncthing desde otro equipo en tu red local:${NC}"
+echo -e "\n${YELLOW}Luego, para acceder a la interfaz web de Syncthing desde otro equipo en tu red local:${NC}"
 echo -e "${GREEN}1. Ejecuta en tu segundo computador: ssh -L 8384:localhost:8384 $USERNAME@$LOCAL_IP${NC}"
-echo -e "${GREEN}2. Abre en su navegador: http://$LOCAL_IP:8384${NC}"
-echo -e "${GREEN}3. Configua las carpetas a sincronizar desde tu segundo computador${NC}"
+echo -e "${GREEN}2. Abre en su navegador: http://localhost:8384${NC}"
+echo -e "${GREEN}3. Configura las carpetas a sincronizar desde tu segundo computador${NC}"
 
-echo -e "\n${GREEN}Una vez leído esto (anota lo que necesites), reinicia con el comando "sudo reboot" y... ¡a escribir!${NC}"
+echo -e "\n${GREEN}Una vez leído esto (anota lo que necesites), reinicia con el comando 'sudo reboot' y... ¡a escribir!${NC}"
