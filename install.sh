@@ -163,12 +163,14 @@ syncthing cli add-folder --id=writerdeck --path=~/writerdeck --label="WriterDeck
 # Obtener la IP local de la máquina (excluyendo loopback y IPv6)
 LOCAL_IP=$(ip -4 addr show scope global | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n 1)
 
+echo -e "\n${GREEN}¡Tu writerdeck fue configurado exitosamente!${NC}"
+
 echo -e "\n${RED}IMPORTANTE:${NC}"
 
-echo -e "\n${YELLOW}Primero, reinicia tu computador para aplicar todos los cambios.${NC}"
+echo -e "\n${YELLOW}Primero, reinicia este computador para aplicar todos los cambios.${NC}"
+
 
 echo -e "${YELLOW}Luego, para acceder a la interfaz web de Syncthing desde otro equipo en tu red local:${NC}"
 echo -e "${GREEN}1. Ejecuta en tu segundo computador: ssh -L 8384:localhost:8384 $USERNAME@$LOCAL_IP${NC}"
-echo -e "${GREEN}2. Luego abre en su navegador: http://$LOCAL_IP:8384${NC}"
-
-echo -e "\n${GREEN}¡Tu writerdeck fue configurado exitosamente!${NC}"
+echo -e "${GREEN}2. Abre en su navegador: http://$LOCAL_IP:8384${NC}"
+echo -e "${GREEN}3. Configua las carpetas a sincronizar desde tu segundo computador${NC}"
