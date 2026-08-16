@@ -175,4 +175,4 @@ echo -e "${GREEN}1. Ejecuta en tu segundo computador: ssh -L 8384:localhost:8384
 echo -e "${GREEN}2. Abre en su navegador: http://$LOCAL_IP:8384${NC}"
 echo -e "${GREEN}3. Configua las carpetas a sincronizar desde tu segundo computador${NC}"
 
-echo -e "\n${GREEN}Una vez leído esto (anota lo que necesites), reinicia y... ¡a escribir!${NC}"
+echo -e "\n${GREEN}Una vez leído esto (anota lo que necesites), reinicia con el comando "sudo reboot" y... ¡a escribir!${NC}"

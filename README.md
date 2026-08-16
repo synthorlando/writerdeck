@@ -34,5 +34,8 @@ Elige solo instalar las utilidades estándar del sistema y servidor ssh. No esco
 sudo apt install git -y && git clone https://github.com/synthorlando/writerdeck.git && cd writerdeck && chmod +x install.sh && bash install.sh
 ```
 
-# Uso
-[PENDIENTE]
+# En el PC para sincronizar
+## GNU/Linux
+Para acceder a la interfaz web de Syncthing desde otro equipo en tu red local, ejecuta en tu segundo computador:
+ssh -L 8384:localhost:8384 [usuario]@[IP]
+Abre en su navegador: http://[ip]:8384
