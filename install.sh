@@ -34,7 +34,6 @@ sudo apt install -y network-manager acpi light tmux kmscon micro syncthing
 # ====================CONFIGURANDO CARPETA========================
 
 echo -e "${GREEN}Creando carpeta de trabajo...${NC}"
-mkdir ~/writerdeck
 chmod 700 ~/writerdeck
 
 # ====================CONFIGURAR TMUX========================
