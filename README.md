@@ -17,7 +17,7 @@ Deja la cuenta de superusuario en blanco.
 
 ![pantalla de superusuario](https://github.com/synthorlando/writerdeck/blob/main/img/sudo.png?raw=true)
 
-**Encripta el sistema con LUKS durante la instalación.](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)** porque esta configuración usa la opción de _autologin._
+**[Encripta el sistema con LUKS durante la instalación.](https://wiki.upv.es/confluence/spaces/MANUALES/pages/1092977295/Cifrar+el+disco+con+LUKS+en+equipos+GNU+Linux#CifrareldiscoconLUKSenequiposGNU%2FLinux-%F0%9F%94%90Cifradodeldiscodurantelainstalaci%C3%B3ndelsistema)** porque esta configuración usa la opción de _autologin._
 
 ![pantalla de encriptación](https://github.com/synthorlando/writerdeck/blob/main/img/luks.png?raw=true)
 
