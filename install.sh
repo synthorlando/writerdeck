@@ -51,12 +51,12 @@ EOF
 echo -e "${GREEN}Configurando autostart de tmux y micro...${NC}"
 
 # Añadir al .bashrc solo si no existe ya
-if ! grep -q "tmux new-session -A -s autostart -c /writerdeck micro" ~/.bashrc; then
+if ! grep -q "tmux new-session -A -s autostart -c ~/writerdeck micro" ~/.bashrc; then
     cat >> ~/.bashrc <<'EOF'
 
-# Iniciar tmux con micro en /writerdeck
+# Iniciar tmux con micro en writerdeck
 if [ -z "$TMUX" ]; then
-    tmux new-session -A -s autostart -c /writerdeck micro
+    tmux new-session -A -s autostart -c ~/writerdeck micro
 fi
 EOF
     echo -e "${GREEN}Configuración completada${NC}"
@@ -170,25 +170,20 @@ sleep 5
 
 # Añadir carpeta writerdeck para Syncthing
 echo -e "${GREEN}Configurando carpeta writerdeck en Syncthing...${NC}"
-syncthing cli add-folder --id=writerdeck --path=/home/$USERNAME/writerdeck --label="WriterDeck" --type=sendreceive 2>/dev/null || echo -e "${YELLOW}La carpeta ya existe o Syncthing no está listo aún${NC}"
+syncthing cli add-folder --id=writerdeck --path=/home/$USERNAME/writerdeck --label="writerDeck" --type=sendreceive 2>/dev/null
 
 # ====================TODO LISTO=======================
-# Obtener la IP local de la máquina (excluyendo loopback y IPv6)
+# Obtener la IP local
 LOCAL_IP=$(ip -4 addr show scope global | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n 1)
-
-if [ -z "$LOCAL_IP" ]; then
-    LOCAL_IP="No se pudo obtener la IP. Usa 'ip addr' para verificar"
-fi
 
 echo -e "\n${GREEN}¡Tu writerdeck fue configurado exitosamente!${NC}"
 
-echo -e "\n${RED}IMPORTANTE:${NC}"
+echo -e "\n${YELLOW}¿Cómo configurar la sincronización?${NC}"
 
-echo -e "\n${YELLOW}Primero, reinicia este computador para aplicar todos los cambios.${NC}"
-
-echo -e "\n${YELLOW}Luego, para acceder a la interfaz web de Syncthing desde otro equipo en tu red local:${NC}"
-echo -e "${GREEN}1. Ejecuta en tu segundo computador: ssh -L 8384:localhost:8384 $USERNAME@$LOCAL_IP${NC}"
+echo -e "\n${GREEN}Tienes que acceder a la interfaz web de Syncthing desde otro equipo conectado a la misma red WiFi:${NC}"
+echo -e "\n${RED}[!] Si ya está corriendo Syncthing, cierra esa sesión [!]${NC}"
+echo -e "${GREEN}1. Ejecuta en este segundo computador: ssh -L 8384:localhost:8384 $USERNAME@$LOCAL_IP${NC}"
 echo -e "${GREEN}2. Abre en su navegador: http://localhost:8384${NC}"
-echo -e "${GREEN}3. Configura las carpetas a sincronizar desde tu segundo computador${NC}"
+echo -e "${GREEN}3. Configura las carpetas a sincronizar desde ahí${NC}"
 
-echo -e "\n${GREEN}Una vez leído esto (anota lo que necesites), reinicia con el comando 'sudo reboot' y... ¡a escribir!${NC}"
+echo -e "\n${YELLOW}Una vez leído esto (anota las direcciones, por favor), reinicia tu writerdeck con el comando 'sudo reboot' y... ¡a escribir!${NC}"
